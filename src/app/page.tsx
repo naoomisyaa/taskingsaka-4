@@ -30,7 +30,6 @@ export default function Posts() {
 
     dispatch(addPost(newPost));
 
-    // Reset form fields
     setTitle("");
     setDescription("");
   };
@@ -59,14 +58,12 @@ export default function Posts() {
 
     dispatch(updatePost(updatedPost));
 
-    // Reset edit mode
     setEditMode(false);
     setEditPostId(null);
     setEditTitle("");
     setEditDescription("");
   };
 
-  // Handle selecting a post by ID
   const handleSelectPost = (postId: number) => {
     const post = selectPostById({ posts }, postId);
     setSelectedPost(post);
@@ -98,6 +95,13 @@ export default function Posts() {
         </button>
       </form>
       <h1 className={styles.heading}>Posts</h1>
+      {selectedPost && (
+        <div className={styles.selectedPost}>
+          <h1><strong>Post Details</strong></h1>
+          <p><strong>Title:</strong> {selectedPost.title}</p>
+          <p><strong>Description:</strong> {selectedPost.description}</p>
+        </div>
+      )}
       {posts ? (
         posts.map((post: any) => (
           <div key={post.id} className={styles.post}>
@@ -125,13 +129,6 @@ export default function Posts() {
         ))
       ) : (
         <p>No posts found.</p>
-      )}
-      {selectedPost && (
-        <div className={styles.selectedPost}>
-          <h1><strong>Post Details</strong></h1>
-          <p><strong>Title:</strong> {selectedPost.title}</p>
-          <p><strong>Description:</strong> {selectedPost.description}</p>
-        </div>
       )}
     </div>
   );
